@@ -1,4 +1,5 @@
 module.exports = {
+    '@disabled': false,
 
     'default' : {
         isLocal : true,
@@ -21,19 +22,22 @@ module.exports = {
     },
     
     afterEach : function(browser, done) {
-/*         performAsync(function(err) {
-            if (err) {
-              done(err);
-              return;
-            }
-        }); */
         done();
     },
 
-    'Goole Demo Search for nightwatch' : function (browser) {
+    'Open google search page' : function (browser) {
         browser
           .url('http://www.google.com')
           .waitForElementVisible('body', 1000)
+        browser.expect.element('body').to.have.attribute('class').which.contains('vasq');
+        browser.expect.element('body').to.have.attribute('class').before(1000);
+
+        // checking input field
+        browser.expect.element('.gLFyf').to.be.enabled;
+        browser.expect.element('.gLFyf').to.be.an('input')
+    },
+    'Search for nightwatch' : function (browser) {
+        browser
           .setValue('input[type=text]', 'nightwatch')
           .waitForElementVisible('input[name=btnK]', 1000)
           .click('input[name=btnK]')
